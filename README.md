@@ -1,10 +1,10 @@
 # redistore
 
-A fork of [redistore](http://www.godoc.org/gopkg.in/boj/redistore.v1), a session store backend for [gorilla/sessions](http://www.gorillatoolkit.org/pkg/sessions). It uses [go-redis](github.com/go-redis/redis/v8) instead of [redigo](https://github.com/gomodule/redigo).
+A fork of [redistore](http://www.godoc.org/gopkg.in/boj/redistore.v1), a session store backend for [gorilla/sessions](http://www.gorillatoolkit.org/pkg/sessions). It uses [go-redis](https://github.com/go-redis/redis/v8) instead of [redigo](https://github.com/gomodule/redigo).
 
 ## Requirements
 
-Depends on the [go-redis](github.com/go-redis/redis/v8) library.
+Depends on the [go-redis](https://github.com/go-redis/redis/v8) library.
 
 ## Installation
 
