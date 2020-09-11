@@ -112,7 +112,7 @@ func TestRediStore(t *testing.T) {
 	{
 		// RedisStore
 		addr := setup()
-		store, err := NewRediStore(10, "tcp", addr, "", []byte("secret-key"))
+		store, err := NewRediStore(addr, "", []byte("secret-key"))
 		if err != nil {
 			t.Fatal(err.Error())
 		}
@@ -149,7 +149,7 @@ func TestRediStore(t *testing.T) {
 	{
 
 		addr := setup()
-		store, err := NewRediStore(10, "tcp", addr, "", []byte("secret-key"))
+		store, err := NewRediStore(addr, "", []byte("secret-key"))
 		if err != nil {
 			t.Fatal(err.Error())
 		}
@@ -201,7 +201,7 @@ func TestRediStore(t *testing.T) {
 	// RedisStore
 	{
 		addr := setup()
-		store, err := NewRediStore(10, "tcp", addr, "", []byte("secret-key"))
+		store, err := NewRediStore(addr, "", []byte("secret-key"))
 		if err != nil {
 			t.Fatal(err.Error())
 		}
@@ -235,7 +235,7 @@ func TestRediStore(t *testing.T) {
 	// Custom type
 	{
 		addr := setup()
-		store, err := NewRediStore(10, "tcp", addr, "", []byte("secret-key"))
+		store, err := NewRediStore(addr, "", []byte("secret-key"))
 		if err != nil {
 			t.Fatal(err.Error())
 		}
@@ -268,36 +268,10 @@ func TestRediStore(t *testing.T) {
 	}
 
 	// Round 5 ----------------------------------------------------------------
-	// RediStore Delete session (deprecated)
-
-	//req, _ = http.NewRequest("GET", "http://localhost:8080/", nil)
-	//req.Header.Add("Cookie", cookies[0])
-	//rsp = NewRecorder()
-	//// Get a session.
-	//if session, err = store.Get(req, "session-key"); err != nil {
-	//	t.Fatalf("Error getting session: %v", err)
-	//}
-	//// Delete session.
-	//if err = store.Delete(req, rsp, session); err != nil {
-	//	t.Fatalf("Error deleting session: %v", err)
-	//}
-	//// Get a flash.
-	//flashes = session.Flashes()
-	//if len(flashes) != 0 {
-	//	t.Errorf("Expected empty flashes; Got %v", flashes)
-	//}
-	//hdr = rsp.Header()
-	//cookies, ok = hdr["Set-Cookie"]
-	//if !ok || len(cookies) != 1 {
-	//	t.Fatalf("No cookies. Header:", hdr)
-	//}
-
-	// Round 6 ----------------------------------------------------------------
 	// RediStore change MaxLength of session
-
 	{
 		addr := setup()
-		store, err := NewRediStore(10, "tcp", addr, "", []byte("secret-key"))
+		store, err := NewRediStore(addr, "", []byte("secret-key"))
 		if err != nil {
 			t.Fatal(err.Error())
 		}
@@ -321,12 +295,11 @@ func TestRediStore(t *testing.T) {
 		}
 	}
 
-	// Round 7 ----------------------------------------------------------------
-
+	// Round 6 ----------------------------------------------------------------
 	// RedisStoreWithDB
 	{
 		addr := setup()
-		store, err := NewRediStoreWithDB(10, "tcp", addr, "", "1", []byte("secret-key"))
+		store, err := NewRediStoreWithDB(addr, "", 1, []byte("secret-key"))
 		if err != nil {
 			t.Fatal(err.Error())
 		}
@@ -370,13 +343,13 @@ func TestRediStore(t *testing.T) {
 		}
 	}
 
-	// Round 8 ----------------------------------------------------------------
+	// Round 7 ----------------------------------------------------------------
 	// JSONSerializer
 
 	// RedisStore
 	{
 		addr := setup()
-		store, err := NewRediStore(10, "tcp", addr, "", []byte("secret-key"))
+		store, err := NewRediStore(addr, "", []byte("secret-key"))
 		store.SetSerializer(JSONSerializer{})
 		if err != nil {
 			t.Fatal(err.Error())
@@ -423,7 +396,7 @@ func TestRediStore(t *testing.T) {
 }
 
 func TestPingGoodPort(t *testing.T) {
-	store, _ := NewRediStore(10, "tcp", ":6379", "", []byte("secret-key"))
+	store, _ := NewRediStore(":6379", "", []byte("secret-key"))
 	defer store.Close()
 	ok, err := store.ping()
 	if err != nil {
@@ -435,7 +408,7 @@ func TestPingGoodPort(t *testing.T) {
 }
 
 func TestPingBadPort(t *testing.T) {
-	store, _ := NewRediStore(10, "tcp", ":6378", "", []byte("secret-key"))
+	store, _ := NewRediStore(":6378", "", []byte("secret-key"))
 	defer store.Close()
 	_, err := store.ping()
 	if err == nil {
@@ -445,7 +418,7 @@ func TestPingBadPort(t *testing.T) {
 
 func ExampleRediStore() {
 	// RedisStore
-	store, err := NewRediStore(10, "tcp", ":6379", "", []byte("secret-key"))
+	store, err := NewRediStore(":6379", "", []byte("secret-key"))
 	if err != nil {
 		panic(err)
 	}
