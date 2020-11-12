@@ -1,12 +1,12 @@
-// Copyright 2012 Brian "bojo" Jones, 2020 Tosh J.K.; All rights reserved.
+// Copyright 2012 Brian "bojo" Jones, 2020 climech.org; All rights reserved.
 // Use of this source code is governed by a MIT-style
 // License that can be found in the LICENSE file.
 
 package redistore
 
 import (
-	"context"
 	"bytes"
+	"context"
 	"encoding/base32"
 	"encoding/gob"
 	"encoding/json"
@@ -261,13 +261,13 @@ func (s *RediStore) save(session *sessions.Session) error {
 		age = s.DefaultMaxAge
 	}
 	duration := time.Duration(age) * time.Second
-	return s.Client.Set(ctx, s.keyPrefix + session.ID, b, duration).Err()
+	return s.Client.Set(ctx, s.keyPrefix+session.ID, b, duration).Err()
 }
 
 // load reads the session from redis.
 // returns true if there is session data in DB
 func (s *RediStore) load(session *sessions.Session) (bool, error) {
-	b, err := s.Client.Get(ctx, s.keyPrefix + session.ID).Bytes()
+	b, err := s.Client.Get(ctx, s.keyPrefix+session.ID).Bytes()
 	if err != nil {
 		if err == redis.Nil {
 			return false, nil // no data was associated with this key
@@ -279,7 +279,7 @@ func (s *RediStore) load(session *sessions.Session) (bool, error) {
 
 // delete removes keys from redis if MaxAge<0
 func (s *RediStore) delete(session *sessions.Session) error {
-	if err := s.Client.Del(ctx, s.keyPrefix + session.ID).Err(); err != nil {
+	if err := s.Client.Del(ctx, s.keyPrefix+session.ID).Err(); err != nil {
 		return err
 	}
 	return nil

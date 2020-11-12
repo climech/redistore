@@ -8,7 +8,7 @@ Depends on the [go-redis](https://github.com/go-redis/redis/v8) library.
 
 ## Installation
 
-    go get github.com/toshjk/redistore
+    go get github.com/climech/redistore
 
 ## Documentation
 
