@@ -1,4 +1,4 @@
-module github.com/toshjk/redistore
+module github.com/climech/redistore
 
 go 1.15
 
